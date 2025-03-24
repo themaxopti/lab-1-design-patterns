@@ -1,3 +1,4 @@
+import { logger } from "./logger";
 import { Point } from "./Point";
 import { ShapeModel, ShapeValidator } from "./Shape";
 
@@ -13,6 +14,7 @@ export class PyramidModel extends ShapeModel {
   constructor(coordinates: Point[], apex: Point) {
     super(coordinates);
     this.apex = apex;
+    logger.info(`Created Pyramid with apex at (${apex.x}, ${apex.y}, ${apex.z})`);
   }
 }
 

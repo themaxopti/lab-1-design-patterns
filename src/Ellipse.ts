@@ -1,3 +1,4 @@
+import { logger } from "./logger";
 import { Point } from "./Point";
 import { ShapeModel, ShapeValidator } from "./Shape";
 
@@ -14,6 +15,7 @@ export class EllipseModel extends ShapeModel {
 
   constructor(coordinates: Point[]) {
     super(coordinates);
+    logger.info(`Created Ellipse`);
   }
 }
 
