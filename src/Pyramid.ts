@@ -1,6 +1,7 @@
 import { logger } from "./logger";
 import { Point } from "./Point";
 import { ShapeModel, ShapeValidator } from "./Shape";
+import { RegisterShape } from "./store/decorators/register-shape";
 
 export class PyramidFabric {
   static create(coordinates: Point[], apex: Point) {
@@ -8,13 +9,20 @@ export class PyramidFabric {
   }
 }
 
+@RegisterShape
 export class PyramidModel extends ShapeModel {
   apex: Point;
 
   constructor(coordinates: Point[], apex: Point) {
     super(coordinates);
     this.apex = apex;
-    logger.info(`Created Pyramid with apex at (${apex.x}, ${apex.y}, ${apex.z})`);
+    // logger.info(
+    //   `Created Pyramid with apex at (${apex.x}, ${apex.y}, ${apex.z})`
+    // );
+  }
+
+  getValidator() {
+    return new PyramidValidator(this);
   }
 }
 
@@ -85,5 +93,37 @@ export class PyramidValidator extends ShapeValidator {
     const bottomVolume = this.getVoulume() - topVolume;
 
     return topVolume / bottomVolume;
+  }
+
+  getPerimeter(): number {
+    const coords = this.shape.coordinates;
+    const n = coords.length;
+    let perimeter = 0;
+
+    for (let i = 0; i < n; i++) {
+      const p1 = coords[i];
+      const p2 = coords[(i + 1) % n];
+      const dx = p1.x - p2.x;
+      const dy = p1.y - p2.y;
+      const dz = p1.z - p2.z;
+      perimeter += Math.sqrt(dx * dx + dy * dy + dz * dz);
+    }
+
+    return perimeter;
+  }
+
+  getArea() {
+    let area = 0;
+    const coordinates = this.shape.coordinates;
+    const n = coordinates.length;
+
+    for (let i = 0; i < n; i++) {
+      const j = (i + 1) % n;
+      area +=
+        coordinates[i].x * coordinates[j].y -
+        coordinates[j].x * coordinates[i].y;
+    }
+
+    return Math.abs(area) / 2;
   }
 }

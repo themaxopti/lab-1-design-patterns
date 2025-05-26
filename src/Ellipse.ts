@@ -1,6 +1,6 @@
-import { logger } from "./logger";
 import { Point } from "./Point";
 import { ShapeModel, ShapeValidator } from "./Shape";
+import { RegisterShape } from "./store/decorators/register-shape";
 
 export class EllipseFabric {
   static create(coordinates: Point[]) {
@@ -8,6 +8,8 @@ export class EllipseFabric {
   }
 }
 
+
+@RegisterShape
 export class EllipseModel extends ShapeModel {
   center: Point;
   width: number;
@@ -15,7 +17,16 @@ export class EllipseModel extends ShapeModel {
 
   constructor(coordinates: Point[]) {
     super(coordinates);
-    logger.info(`Created Ellipse`);
+    // setTimeout(() => {
+    //   Warehouse.getInstance().addShapeInstance(this);
+    //   this.notify(); 
+    // },100)
+  
+    // logger.info(`Created Ellipse`);
+  }
+
+  getValidator() {
+    return new ElipseValidator(this);
   }
 }
 
@@ -32,6 +43,7 @@ export class ElipseValidator extends ShapeValidator {
     );
     this.width = Math.abs(shape.coordinates[1].x - shape.coordinates[0].x) / 2; 
     this.height = Math.abs(shape.coordinates[1].y - shape.coordinates[0].y) / 2; 
+    
   }
 
   getArea() {
@@ -63,4 +75,6 @@ export class ElipseValidator extends ShapeValidator {
   isCircle() {
     return this.width === this.height;
   }
+
+  
 }
