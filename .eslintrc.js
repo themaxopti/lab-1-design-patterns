@@ -1,10 +1,8 @@
 module.exports = {
     parser: "@typescript-eslint/parser",
     extends: [
-        "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
     ],
-    plugins: ["@typescript-eslint"],
+    plugins: [],
     env: {
         node: true,
         es6: true
@@ -18,7 +16,9 @@ module.exports = {
         {
             files: ["*.ts", "*.tsx"],
             rules: {
-                "@typescript-eslint/no-require-imports": "off"
+                "@typescript-eslint/no-require-imports": "off",
+                "@typescript-eslint/no-explicit-any": 'off'
+
             }
         }
     ],

@@ -17,12 +17,6 @@ export class EllipseModel extends ShapeModel {
 
   constructor(coordinates: Point[]) {
     super(coordinates);
-    // setTimeout(() => {
-    //   Warehouse.getInstance().addShapeInstance(this);
-    //   this.notify(); 
-    // },100)
-  
-    // logger.info(`Created Ellipse`);
   }
 
   getValidator() {
@@ -75,6 +69,4 @@ export class ElipseValidator extends ShapeValidator {
   isCircle() {
     return this.width === this.height;
   }
-
-  
 }

@@ -1,7 +1,5 @@
-import { PyramidFabric, PyramidValidator } from "./Pyramid";
-import { Point } from "./Point";
-import { ElipseValidator, EllipseFabric } from "./Ellipse";
-import { getElipseData, getPyramidData } from "./utils";
+import { PyramidFabric } from "./Pyramid";
+import { EllipseFabric } from "./Ellipse";
 import { ShapeRepoContext, ShapeRepository } from "./store/repo/Reopsitory";
 import { Warehouse } from "./store/repo/WhareHouse";
 
@@ -39,8 +37,6 @@ async function bootstrap() {
   }
 }
 
-// bootstrap();
-
 export class App {
   repo: ShapeRepository;
   constructor(repo: ShapeRepository) {
@@ -56,7 +52,6 @@ export class App {
 Warehouse.getInstance();
 const shapeRepo = new ShapeRepository();
 const app = new App(shapeRepo);
-// const elipse3 = EllipseFabric.create([{ x: 1, y: 1, z: 2 }]);
 const elipse4 = EllipseFabric.create([
   { x: 1, y: 1, z: 0 },
   { x: 3, y: 2, z: 0 },
@@ -77,28 +72,9 @@ PyramidFabric.create(
   { x: 0, y: 0, z: 2 }
 );
 
-// elipse4.coordinates = elipse4.coordinates.map((el) => {
-//   return {
-//     ...el,
-//     x: 3,
-//     y: 3,
-//   };
-// });
-
 elipse4.coordinates = [
   { x: 1, y: 1, z: 0 },
   { x: 6, y: 2, z: 0 },
 ];
 
-// elipse4.setCoordinates([
-//   { x: 1, y: 1, z: 0 },
-//   { x: 3, y: 2, z: 0 },
-// ]);
-
-// console.log(elipse4.id, elipse5.id);
-
-// console.log(Warehouse.getInstance());
-// app.getRepo();
-console.log(
-  app.repo.findByType('elipse')
-);
+console.log(app.repo.findByType("elipse"));
